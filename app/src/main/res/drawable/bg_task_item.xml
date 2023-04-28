@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle"
+    android:layout_margin="16dp"
+    android:elevation="8dp">
+
+    <gradient
+        android:startColor="@color/purple_200"
+        android:centerColor="@color/purple_500"
+        android:endColor="@color/home_background_color"
+        android:type="linear"
+      />
+
+    <corners android:radius="15dp"/>
+
+
+
+</shape>

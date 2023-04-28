@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<group android:checkableBehavior="single">
+    <item android:id="@+id/nav_home"
+        android:title="Home"
+        android:icon="@drawable/ic_home"/>
+    <item android:id="@+id/nav_tasks"
+        android:title="Task-uri"
+        android:icon="@drawable/ic_task"/>
+    <item android:id="@+id/nav_facuri"
+        android:title="Facturi"
+        android:icon="@drawable/ic_facturi"/>
+
+</group>
+</menu>

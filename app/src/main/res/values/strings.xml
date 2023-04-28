@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Home Management</string>
+    <string name="add_task">Adauga task</string>
+    <string name="save">Salveaza</string>
+    <string name="family_member">Membrul familiei</string>
+    <string name="deadline">Deadline</string>
+    <string name="task">Task-ul</string>
+    <string name="task_title">Adauga un nou task</string>
+    <string name="error_msg">Camp necompletat</string>
+    <string name="hello">Hello</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_register">Register</string>
+    <string name="home">Home Name</string>
+    <string name="menu_open">Open</string>
+    <string name="menu_close">Close</string>
+    <string name="intro">Pentru a putea salva datele casei tale te rugam sa te autentifici. Poti oricand schimba contul din pagina Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="home_name">Numele Casei</string>
+    <string name="total">Totalul facturilor:</string>
+    <string name="gaze">Factura gaze:</string>
+    <string name="curent">Factura curent:</string>
+    <string name="intretinere">Factura intretinere:</string>
+    <string name="cablu">Factura cablu:</string>
+    <string name="monthName">Luna curenta:</string>
+    <string name="cost">0</string>
+    <string name="lei">lei</string>
+    <string name="evidenta">Aici poti tine evidenta facturilor tale curente</string>
+    <string name="notification_title">"Home Managament"</string>
+    <string name="notification_text">Nu uita sa iti adaugi facturile pentru aceasta luna.</string>
+
+
+
+</resources>
