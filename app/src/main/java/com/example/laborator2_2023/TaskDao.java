@@ -13,11 +13,11 @@ import java.util.List;
 public interface TaskDao {
 
     @Insert
-    void insertTask(Task task);
+    void insertTask(Task... tasks);
     @Update
-    void upateTask(Task task);
+    void upateTask(Task... tasks);
     @Delete
-    void deleteTask(Task task);
+    void deleteTask(Task... tasks);
 
     @Query("SELECT * FROM task")
     List<Task> getAllTasks();
