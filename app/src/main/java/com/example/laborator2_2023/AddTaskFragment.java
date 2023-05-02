@@ -104,6 +104,7 @@ public class AddTaskFragment extends Fragment implements TaskOperations {
                 else {
                     //create new task and send it to tfe tasks page
                     TaskModel item = new TaskModel(
+                            0,
                             strTxt,
                             strData,
                             strMember,
@@ -163,7 +164,7 @@ public class AddTaskFragment extends Fragment implements TaskOperations {
         String id_string = preferences.getString(PREFERENCES_ID_KEY,"1");
         int id = Integer.parseInt(id_string) + 1;
 
-        Task task1 = new Task(id,task,deadline,user);
+        Task task1 = new Task(id,task,deadline,user,false);
         Task[] tasks = new Task[]{task1};
 
         new InsertTaskOperation(this).execute(tasks);
@@ -181,6 +182,11 @@ public class AddTaskFragment extends Fragment implements TaskOperations {
 
     @Override
     public void findTasksFinished(List<Task> tasks) {
+
+    }
+
+    @Override
+    public void deleteTasksFinished(String result) {
 
     }
 }

@@ -12,10 +12,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,7 +57,27 @@ public class HomeFragment extends Fragment implements OnItemClickListener {
 
 
     public HomeFragment() {
-        super(R.layout.fragment_home);
+
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootView;
+
+        // Check the orientation of the device
+        int orientation = getResources().getConfiguration().orientation;
+
+        // If the device is in landscape mode, load the landscape layout
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            rootView = inflater.inflate(R.layout.fragment_home_landscape, container, false);
+        }
+        else{
+            rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        }
+
+
+        return rootView;
     }
 
     @Override

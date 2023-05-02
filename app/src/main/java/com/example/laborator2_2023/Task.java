@@ -18,11 +18,11 @@ public class Task {
     public String username; //cine face task-ul
     public Boolean status; //statusul
 
-    public Task(int id, @NonNull String task, @NonNull String deadline, @NonNull String username) {
+    public Task(int id, @NonNull String task, @NonNull String deadline, @NonNull String username, Boolean status) {
         this.id = id;
         this.task = task;
         this.deadline = deadline;
         this.username = username;
-        this.status = false;
+        this.status = status;
     }
 }

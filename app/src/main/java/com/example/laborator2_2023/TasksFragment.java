@@ -2,6 +2,7 @@ package com.example.laborator2_2023;
 
 import static com.example.laborator2_2023.AddTaskFragment.TASK;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,10 +32,15 @@ public class TasksFragment extends Fragment implements OnItemClickListener, Task
 
     public final static String PREFERENCES_ID_KEY = "preferences key id";
 
+    private CheckBox checkBox;
 
     private Button goAddTask;
 
+    public RecyclerView rv;
+
     public TasksFragment() { super(R.layout.fragment_tasks);}
+
+
 
     @Nullable
     @Override
@@ -42,8 +50,9 @@ public class TasksFragment extends Fragment implements OnItemClickListener, Task
         searchtasks();
 
         CustomAdapter adapter = new CustomAdapter(taskModelList, this);
-        RecyclerView rv = view.findViewById(R.id.recycler_view);
+        rv = view.findViewById(R.id.recycler_view);
         rv.setAdapter(adapter);
+
 
         return view;
     }
@@ -52,8 +61,7 @@ public class TasksFragment extends Fragment implements OnItemClickListener, Task
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        //initializarea de task-uri (le iau din baza de date);
-//        searchtasks();
+        //remove done tasks
 
 
         goAddTask = view.findViewById(R.id.go_add_task);
@@ -72,10 +80,6 @@ public class TasksFragment extends Fragment implements OnItemClickListener, Task
 
 
 
-//        CustomAdapter adapter = new CustomAdapter(taskModelList, this);
-//        RecyclerView rv = view.findViewById(R.id.recycler_view);
-//        rv.setAdapter(adapter);
-
         //preiau datele din add task
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -89,6 +93,7 @@ public class TasksFragment extends Fragment implements OnItemClickListener, Task
     private void initializeList() { //iau datele din baza de date -TODO
 
         taskModelList.add(new TaskModel(
+                1,
                 "Spala vasele",
                 "21 mai 2023",
                 "Alexandra",
@@ -96,6 +101,7 @@ public class TasksFragment extends Fragment implements OnItemClickListener, Task
 
         ));
         taskModelList.add(new TaskModel(
+                2,
                 "Arunca gunoiul",
                 "22 mai 2023",
                 "Alexandra",
@@ -106,6 +112,18 @@ public class TasksFragment extends Fragment implements OnItemClickListener, Task
     }
     @Override
     public void onItemClick(TaskModel item) {
+
+        for (TaskModel task : taskModelList) {
+            if(task.getId()==item.getId()){
+                task.setStatus(true);
+            }
+
+        }
+        CustomAdapter adapter = new CustomAdapter(taskModelList, this);
+        rv.setAdapter(adapter);
+
+        deleteTask(item.getId(), item.getTaskText(), item.getDeadline(),
+                item.getUsername(), item.getStatus());
 
     }
 
@@ -131,19 +149,24 @@ public class TasksFragment extends Fragment implements OnItemClickListener, Task
     @Override
     public void findTasksFinished(List<Task> tasks) {
         if (tasks!= null){
-            taskModelList.clear();
-            for (Task task : tasks) {
+
+            taskModelList.clear(); //clear the list
+            int lastId = 0;
+            for (Task task : tasks) { //get the raimain items from database
                 taskModelList.add(new TaskModel(
+                        task.id,
                         task.task,
                         task.deadline,
                         task.username,
                         task.status
                 ));
+                lastId = task.id;
             }
 
             int length = taskModelList.size();
-            Log.d("TasksFragment2", String.valueOf(length));
-            makePreferences(String.valueOf(length));
+
+
+            makePreferences(String.valueOf(lastId));
 
             CustomAdapter adapter = new CustomAdapter(taskModelList, this);
             RecyclerView rv = getView().findViewById(R.id.recycler_view);
@@ -152,6 +175,24 @@ public class TasksFragment extends Fragment implements OnItemClickListener, Task
         }
         else{
             Toast.makeText(getContext(),"Nu exista task-uri",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void deleteTask(int id,String task,String deadline, String user, Boolean status){
+
+        Task task1 = new Task(id,task,deadline,user,status);
+        Task[] tasks = new Task[]{task1};
+
+        new DeleteTaskOperation(this).execute(tasks);
+    }
+
+    @Override
+    public void deleteTasksFinished(String result) {
+        if (result.equals("succes")){
+            Toast.makeText(getContext(),"Task finalizat",Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(getContext(),"Fail",Toast.LENGTH_LONG).show();
         }
     }
 
@@ -164,6 +205,9 @@ public class TasksFragment extends Fragment implements OnItemClickListener, Task
         editor.apply();
 
     }
+
+
+
 }
 
 

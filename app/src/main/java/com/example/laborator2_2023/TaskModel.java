@@ -7,16 +7,26 @@ import androidx.annotation.NonNull;
 
 public class TaskModel implements Parcelable {
 
+    private int id;
     private String taskText; //task-ul
     private String deadline; //data limita
     private String username; //cine face task-ul
     private Boolean status; //statusul
 
-    public TaskModel(String taskText, String deadline, String username, Boolean status) {
+    public TaskModel(int id, String taskText, String deadline, String username, Boolean status) {
+        this.id = id;
         this.taskText = taskText;
         this.deadline = deadline;
         this.username = username;
         this.status = status;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Boolean getStatus() {
