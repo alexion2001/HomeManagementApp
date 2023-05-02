@@ -50,10 +50,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getSupportFragmentManager().beginTransaction()
-                .setReorderingAllowed(true)
-                .add(R.id.fragment_container, HomeFragment.class, null)
-                .commit();
+        Intent intent = getIntent();
+        String fragmentToOpen = intent.getStringExtra("FRAGMENT_TO_OPEN");
+
+        if (fragmentToOpen != null) {
+            // Replace the default fragment with the LoginFragment
+            getSupportFragmentManager().beginTransaction()
+                    .setReorderingAllowed(true)
+                    .replace(R.id.fragment_container, LoginFragment.class, null)
+                    .commit();
+
+         } else {
+                    getSupportFragmentManager().beginTransaction()
+                            .setReorderingAllowed(true)
+                            .replace(R.id.fragment_container, HomeFragment.class, null)
+                            .commit();
+                }
+
+
 
         //meniu
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -98,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("MAINACTIVITYCLICK", "id negasit");
                 }
                 return true;
-                //actualizez numele casei la logare --TODO
+
             }
         });
 

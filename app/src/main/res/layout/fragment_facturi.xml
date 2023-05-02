@@ -63,8 +63,8 @@
 
     <TextView
         android:id="@+id/totalCost"
-        android:layout_width="112dp"
-        android:layout_height="52dp"
+        android:layout_width="166dp"
+        android:layout_height="54dp"
         android:focusable="true"
         android:inputType="text"
         android:padding="10dp"
@@ -72,7 +72,7 @@
         android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.892"
+        app:layout_constraintHorizontal_bias="0.934"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.976"
