@@ -25,7 +25,7 @@
     <string name="monthName">Luna curenta:</string>
     <string name="cost">0</string>
     <string name="lei">lei</string>
-    <string name="evidenta">Aici poti tine evidenta facturilor tale curente</string>
+    <string name="evidenta">Aici poti tine evidenta facturilor tale curente. La inceput de luna datele se vor reseta.</string>
     <string name="notification_title">"Home Managament"</string>
     <string name="notification_text">Nu uita sa iti adaugi facturile pentru aceasta luna.</string>
 

@@ -51,12 +51,14 @@ public class FacturiFragment extends Fragment {
     private TextView totalCost;
     private TextView textView; //luna
 
+    public final static String PREFERENCES_KEY = "preferences key";
+
+    public final static String PREFERENCES_CURENT_KEY = "preferences key curent";
+    public final static String PREFERENCES_GAZE_KEY = "preferences key gaze";
+    public final static String PREFERENCES_INTRETINERE_KEY = "preferences key intretinere";
+    public final static String PREFERENCES_CABLU_KEY = "preferences key cablu";
 
 
-
-
-    public static String HOUSE_NAME = "house name";
-    public static String HOUSE = "house";
 
     public FacturiFragment() {
       //  super(R.layout.fragment_facturi);
@@ -95,7 +97,7 @@ public class FacturiFragment extends Fragment {
         String month_msg = getString(R.string.monthName) + " " + monthName;
         textView.setText(month_msg);
 
-        //costul total
+        //date facturi
         curentCost = view.findViewById(R.id.curentCost);
         gazeCost = view.findViewById(R.id.gazeCost);
         intretinereCost = view.findViewById(R.id.intretinereCost);
@@ -103,8 +105,31 @@ public class FacturiFragment extends Fragment {
         totalCost = view.findViewById(R.id.totalCost);
         button2 = view.findViewById(R.id.button2);
 
+        //iau datele din shared pref
+        Context context = getContext().getApplicationContext();
+        SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
+        String gaze = preferences.getString(PREFERENCES_GAZE_KEY,"0.0");
+        String curent = preferences.getString(PREFERENCES_CURENT_KEY,"0.0");
+        String cablu = preferences.getString(PREFERENCES_CABLU_KEY,"0.0");
+        String intretinere = preferences.getString(PREFERENCES_INTRETINERE_KEY,"0.0");
 
 
+    // setez datele in aplicatie
+        gazeCost.setText(gaze);
+        curentCost.setText(curent);
+        cabluCost.setText(cablu);
+        intretinereCost.setText( intretinere);
+
+        //calculez costul
+        double total = Double.parseDouble(curentCost.getText().toString()) +
+                Double.parseDouble(gazeCost.getText().toString()) +
+                Double.parseDouble(intretinereCost.getText().toString()) +
+                Double.parseDouble(cabluCost.getText().toString());
+        //o adaug la suma totala
+
+        totalCost.setText(String.format(Locale.getDefault(), "%.2f lei", total));
+
+        //modificare si salvare date, cost total
         if (button2 != null) {
             // Button found
             button2.setOnClickListener(new View.OnClickListener() {
@@ -119,12 +144,38 @@ public class FacturiFragment extends Fragment {
 
                     totalCost.setText(String.format(Locale.getDefault(), "%.2f lei", total));
 
-                    //salvez valorile in shared pref si le resetez pe 1 in fiecare luna -TODO
+                    //salvez valorile in shared pref si le resetez pe 1 in fiecare luna
+                    makePreferences(gazeCost.getText().toString(),curentCost.getText().toString(),
+                            intretinereCost.getText().toString(), cabluCost.getText().toString());
                 }
             });
         }
 
 
+    }
+
+    private void makePreferences(String gaze, String curent, String intretinere, String cablu) {
+        Context context = getContext().getApplicationContext();
+
+        SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(PREFERENCES_GAZE_KEY, gaze);
+        editor.putString(PREFERENCES_CURENT_KEY, curent);
+        editor.putString(PREFERENCES_INTRETINERE_KEY, intretinere);
+        editor.putString(PREFERENCES_CABLU_KEY, cablu);
+
+        editor.apply();
+
+
+
+    }
+
+    public void sendNotificationWhenMonthChange() {
+        Calendar calendar = Calendar.getInstance();
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        if (dayOfMonth == 1) {
+            makePreferences("0.0", "0.0", "0.0", "0.0");
+        }
     }
 
 

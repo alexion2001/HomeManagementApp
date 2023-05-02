@@ -33,16 +33,11 @@ public class LoginFragment extends Fragment implements UserOperations {
     private String editTextResult;
     private String buttonResult;
 
-    public static String HOUSE_NAME = "house name";
-    public static String HOUSE = "house";
-
     public final static String PREFERENCES_KEY = "preferences key";
 
     public final static String PREFERENCES_NAME_KEY = "preferences key name";
 
-    public final static String PREFERENCES_HOUSE = "preferences key";
 
-    public final static String PREFERENCES_HOUSE_KEY = "preferences key house";
 
     public LoginFragment() {
         super(R.layout.fragment_login);
@@ -145,8 +140,6 @@ public class LoginFragment extends Fragment implements UserOperations {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(PREFERENCES_NAME_KEY, username);
         editor.apply();
-
-
 
     }
 
