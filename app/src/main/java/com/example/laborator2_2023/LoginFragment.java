@@ -15,7 +15,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-public class LoginFragment extends Fragment {
+public class LoginFragment extends Fragment implements UserOperations {
 
     private AppCompatEditText enterUsername;
     private AppCompatEditText enterPassword;
@@ -90,13 +90,9 @@ public class LoginFragment extends Fragment {
                     showErrorPopup();
                 }
                 else {
-                    //create new task and send it to tfe tasks page
-                    makePreferences(strTxt);
-                    LoginModel item = new LoginModel(
-                            strTxt,
-                            strPass  //caut in baza de date --TODO
-                    );
-                    goHome(item);
+                  //caut daca exista user-ul
+                    searchUser(strTxt, strPass);
+
                 }
 
             }
@@ -152,5 +148,30 @@ public class LoginFragment extends Fragment {
 
 
 
+    }
+
+    private void  searchUser(String username,String pass){
+        new FindUserOperation(this).execute(username,pass);
+    }
+
+    @Override
+    public void insertUsersFinished(String result) {
+
+    }
+
+    @Override
+    public void findUserFinished(User user) {
+        if (user!= null){
+            Toast.makeText(getContext(),user.username,Toast.LENGTH_LONG).show();
+            makePreferences(user.username);
+            LoginModel item = new LoginModel(
+                    user.username,
+                    user.password
+            );
+            goHome(item);
+        }
+        else{
+            Toast.makeText(getContext(),"User inexistent",Toast.LENGTH_LONG).show();
+        }
     }
 }

@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,7 +27,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import java.util.Calendar;
 
-public class RegisterFragment extends Fragment {
+public class RegisterFragment extends Fragment implements UserOperations {
 
     private AppCompatEditText enterUsername;
     private AppCompatEditText enterPassword;
@@ -129,6 +130,7 @@ public class RegisterFragment extends Fragment {
                             strTxt,
                             strPass
                     );
+                    insertUsers(strTxt, strPass);
 
                     addNotification("Nu uita sa te loghezi in aplicatie!");
                     //goLogin(item);
@@ -240,5 +242,36 @@ public class RegisterFragment extends Fragment {
     }
 
 
+   private void insertUsers(String username,String pass){
+        User user1 = new User(username,pass);
+        User[] users = new User[]{user1};
 
+        new InsertUserOperation(this).execute(users);
+   }
+
+    private void  searchUser(String username,String pass){
+       new FindUserOperation(this).execute(username,pass);
+    }
+
+
+
+    @Override
+    public void insertUsersFinished(String result) {
+        if (result.equals("succes")){
+            Toast.makeText(getContext(),"User inregistrat",Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(getContext(),"User-ul deja exista",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void findUserFinished(User user) {
+        if (user!= null){
+            Toast.makeText(getContext(),user.username,Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(getContext(),"User inexistent",Toast.LENGTH_LONG).show();
+        }
+    }
 }

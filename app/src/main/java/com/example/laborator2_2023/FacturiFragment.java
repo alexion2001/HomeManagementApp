@@ -9,12 +9,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -56,7 +59,27 @@ public class FacturiFragment extends Fragment {
     public static String HOUSE = "house";
 
     public FacturiFragment() {
-        super(R.layout.fragment_facturi);
+      //  super(R.layout.fragment_facturi);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootView;
+
+        // Check the orientation of the device
+        int orientation = getResources().getConfiguration().orientation;
+
+        // If the device is in landscape mode, load the landscape layout
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            rootView = inflater.inflate(R.layout.fragment_facturi_landscape, container, false);
+        }
+        else{
+            rootView = inflater.inflate(R.layout.fragment_facturi, container, false);
+        }
+
+
+        return rootView;
     }
 
     @Override
@@ -96,7 +119,7 @@ public class FacturiFragment extends Fragment {
 
                     totalCost.setText(String.format(Locale.getDefault(), "%.2f lei", total));
 
-                    //salvez noile valori in baza de date si le incarc in pagina -TODO
+                    //salvez valorile in shared pref si le resetez pe 1 in fiecare luna -TODO
                 }
             });
         }

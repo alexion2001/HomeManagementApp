@@ -99,7 +99,7 @@ public class AddTaskFragment extends Fragment {
                             strMember,
                             false
                     );
-                    goToAddTasksFragment(item); //salvez in baza de date --TODO
+                    goToAddTasksFragment(item); //salvez in baza de date -TODO
                 }
 
             }
