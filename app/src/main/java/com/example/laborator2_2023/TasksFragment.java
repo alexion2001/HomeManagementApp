@@ -133,7 +133,10 @@ public class TasksFragment extends Fragment implements OnItemClickListener, Task
 
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 
-        fragmentTransaction.replace(R.id.fragment_container, addTaskFragment)
+        fragmentTransaction
+                .setCustomAnimations(R.anim.animation_right_left,R.anim.exit_animation_right_left
+                        ,R.anim.animation_left_right,R.anim.exit_animation_left_right)
+                .replace(R.id.fragment_container, addTaskFragment)
                 .addToBackStack(null);
         fragmentTransaction.commit();
     }
