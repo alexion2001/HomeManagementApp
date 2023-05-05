@@ -90,7 +90,7 @@ public class TasksFragment extends Fragment implements OnItemClickListener, Task
         }
     }
 
-    private void initializeList() { //iau datele din baza de date -TODO
+    private void initializeList() {
 
         taskModelList.add(new TaskModel(
                 1,

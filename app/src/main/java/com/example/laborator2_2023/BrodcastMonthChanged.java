@@ -25,7 +25,7 @@ public class BrodcastMonthChanged extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals(Intent.ACTION_DATE_CHANGED)) { //ACTION_TIME_TICK
+        if (intent.getAction().equals(Intent.ACTION_TIME_TICK)) { //ACTION_TIME_TICK
 //            Calendar calendar = Calendar.getInstance();
 //            int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 //            if (dayOfMonth == 3) {

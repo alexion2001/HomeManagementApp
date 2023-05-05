@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,8 +21,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,6 +46,7 @@ public class HomeFragment extends Fragment implements OnItemClickListener {
     private Button button;
 
 
+
     //result data
     private Button buttonLogin;
     private Button buttonRegister;
@@ -56,6 +61,7 @@ public class HomeFragment extends Fragment implements OnItemClickListener {
 
     public final static String PREFERENCES_NAME_KEY = "preferences key name";
 
+    private VideoView videoView;
 
     public HomeFragment() {
 
@@ -75,6 +81,13 @@ public class HomeFragment extends Fragment implements OnItemClickListener {
         }
         else{
             rootView = inflater.inflate(R.layout.fragment_home, container, false);
+            videoView = rootView.findViewById(R.id.video_viewu);
+            Uri uri = Uri.parse("android.resource://com.example.laborator2_2023/raw/my_video");
+            videoView.setVideoURI(uri);
+            MediaController mediaController = new MediaController(getContext());
+            mediaController.setAnchorView(videoView);
+            videoView.setMediaController(mediaController);
+            videoView.start();
         }
 
 
@@ -87,8 +100,6 @@ public class HomeFragment extends Fragment implements OnItemClickListener {
 
 //        //permisiuni aplicatie
 
-
-//
 //        if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
 //            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 1);
 //        }
@@ -132,6 +143,8 @@ public class HomeFragment extends Fragment implements OnItemClickListener {
         textView = view.findViewById(R.id.hello);
         String hello_msg =getString(R.string.hello) + " " + user;
         textView.setText(hello_msg);
+
+
 
 
 //        //get data from login

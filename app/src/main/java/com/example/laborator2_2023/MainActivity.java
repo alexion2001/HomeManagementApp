@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         brodcastMonthChanged = new BrodcastMonthChanged();
-        IntentFilter filter = new IntentFilter(Intent.ACTION_DATE_CHANGED);
+        IntentFilter filter = new IntentFilter(Intent.ACTION_TIME_TICK);
         registerReceiver(brodcastMonthChanged, filter);
 
         //meniu

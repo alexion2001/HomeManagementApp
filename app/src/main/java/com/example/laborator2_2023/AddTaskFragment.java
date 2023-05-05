@@ -110,7 +110,7 @@ public class AddTaskFragment extends Fragment implements TaskOperations {
                             strMember,
                             false
                     );
-                    //insertUsers(strTxt,strData,strMember);
+                    insertUsers(strTxt,strData,strMember);
                     goToAddTasksFragment(item);
                 }
 
